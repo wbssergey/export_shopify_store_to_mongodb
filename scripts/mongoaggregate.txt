@@ -1,0 +1,129 @@
+ db.runCommand ( { distinct: "collects", key: "collection_id" } )
+{
+	"values" : [
+		27588319,frontpage
+		28216931,samsung-powercases
+		28217019,ipad-powercases
+		28230267,accessories
+		28230747,phone-cases
+		28216839,iphone-4-4s-powercases
+		28216967,universal-chargers
+	],
+
+
+db.runCommand(
+   {
+     group:
+       {
+         ns: 'collects',
+         key: { collection_id: 1, 'product_id': 1 },
+         $reduce: function ( curr, result ) {  result.total ++; },
+         initial: { total : 0, count :0},
+         finalize: function(result) {
+              result.avg = Math.round(result.total );
+         };
+       }
+   }
+)
+
+> db.runCommand(    {      group:        {          ns: 'collects',          key: { 'collection_id': 1 },          $reduce: function ( curr, result ) {  result.total ++; },          initial: { total : 0}        }    } )
+{
+	"retval" : [
+		{
+			"collection_id" : 27588319,
+			"total" : 9
+		},
+		{
+			"collection_id" : 28216931,
+			"total" : 3
+		},
+		{
+			"collection_id" : 28217019,
+			"total" : 2
+		},
+		{
+			"collection_id" : 28230267,
+			"total" : 1
+		},
+		{
+			"collection_id" : 28230747,
+			"total" : 7
+		},
+		{
+			"collection_id" : 28216839,
+			"total" : 4
+		},
+		{
+			"collection_id" : 28216967,
+			"total" : 5
+		}
+	],
+	"count" : 31,
+	"keys" : 7,
+	"ok" : 1
+}
+
+
+var collects_total = function(col, k) {   
+var result;
+db.runCommand(    {      group:        {          ns: col,          key: { k: 1 },          $reduce: function ( curr, result ) {  result.total ++; },          initial: { total : 0}        }    } );
+
+}; results.aggregate(    [       {          $project: {             item: 1,      numberOfImages: { $size: "$retval" }          }
+
+
+> db.runCommand(    {      group:        {          ns: 'collects',          key: { 'collection_id': 1 },          $reduce: function ( curr, result ) {  result.total ++; },          initial: { total : 0}        }    } )
+
+
+
+db.products.aggregate(    [       {          $project: {             item: 1,     _id:0, title:1,       numberOfImages: { $size: "$images" }          }       }    ] )
+
+ createCollection('web2');
+
+ db.web1.insert(db.collects.aggregate( {$group: {'_id':'$collection_id', counter: {$sum:1}}  } )) ;
+
+db.web1.update( { }, { $rename: { '_id': 'collection_id' } } )
+
+
+
+> db.collects.aggregate( {$group: {          '_id':'$collection_id', count: {$sum:1}}  } , {$project:  { _id:0, count:1,   collection_id: "$_id" } }   ) ;
+{ "count" : 7, "collection_id" : 28230747 }
+{ "count" : 5, "collection_id" : 28216967 }
+{ "count" : 4, "collection_id" : 28216839 }
+{ "count" : 1, "collection_id" : 28230267 }
+{ "count" : 2, "collection_id" : 28217019 }
+{ "count" : 3, "collection_id" : 28216931 }
+{ "count" : 9, "collection_id" : 27588319 }
+> 
+
+original_id = ObjectId()
+
+db.collects.aggregate( {$group: {          '_id':'$collection_id', count: {$sum:1}}  } , {$project:  { _id:0, count:1,   collection_id: "$_id" } }  , {$out: 'web2'} )
+
+db.web2.find({},{_id:0,collection_id:1}).forEach (function(myDoc) { print(myDoc.collection_id ); } );
+
+> db.web2.find({},{_id:0,collection_id:1}).forEach (function(myDoc) {  
+db.collects.find({collection_id: myDoc.collection_id},{_id:0,collection_id:1,"product_id":1}).forEach(
+
+printjson
+
+)     } );
+
+
+reset($doc);
+while (list($key, $val) = each($doc)) {
+    echo "$key => $val\n";
+
+
+355128523 PowerCase Classic for iPhone 4 & 4s (3 variant)
+353784475 Power Case Bumper for iPhone 5/5S (2 variant)
+355131695 PowerCase Bumper for iPhone 4 & 4s (2 variant)
+355135091 PowerCase Bumper Aluminium for iPhone 4 & 4s (3 variant)
+
+
+355128523
+353784475
+355131695
+355135091
+
+
+
