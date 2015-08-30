@@ -1,0 +1,1 @@
+load("mymongo.js");
