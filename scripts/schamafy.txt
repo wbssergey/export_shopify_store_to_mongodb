@@ -1,0 +1,159 @@
+var schemafy = function(schema, i, limit) {
+    var i = (typeof i !== 'undefined') ? i : 1;
+    var limit = (typeof limit !== 'undefined') ? limit : false;
+    var type = '';
+    var array = false;
+
+    for (key in schema) {
+        type = typeof schema[key];
+        array = (schema[key] instanceof Array) ? true : false;
+
+        if (type === 'object') {
+            print(Array(i).join('    ') + key+' <'+((array) ? 'array' : type)+'>:');
+            schemafy(schema[key], i+1, array);
+        } else {
+            print(Array(i).join('    ') + key+' <'+type+'>');
+        }
+
+        if (limit) {
+            break;
+        }
+    }
+}
+
+var schematodo = db.[collection].findOne(); for (var key in schematodo) { print (key) ; }
+
+
+> schemafy(db.products.findOne());
+_id <object>:
+    str <string>
+    toString <function>
+    tojson <function>
+    valueOf <function>
+    isObjectId <boolean>
+    getTimestamp <function>
+    equals <function>
+products <array>:
+    0 <object>:
+        body_html <string>
+        created_at <string>
+        handle <string>
+        id <number>
+        product_type <string>
+        published_at <string>
+        published_scope <string>
+        template_suffix <object>:
+        title <string>
+        updated_at <string>
+        vendor <string>
+        tags <string>
+        variants <array>:
+            0 <object>:
+                barcode <string>
+                compare_at_price <object>:
+                created_at <string>
+                fulfillment_service <string>
+                grams <number>
+                id <number>
+                inventory_management <object>:
+                inventory_policy <string>
+                option1 <string>
+                option2 <object>:
+                option3 <object>:
+                position <number>
+                price <string>
+                product_id <number>
+                requires_shipping <boolean>
+                sku <string>
+                taxable <boolean>
+                title <string>
+                updated_at <string>
+                inventory_quantity <number>
+                old_inventory_quantity <number>
+                image_id <object>:
+                weight <number>
+                weight_unit <string>
+        options <array>:
+            0 <object>:
+                id <number>
+                name <string>
+                position <number>
+                product_id <number>
+        images <array>:
+>
+
+ db.variants.find( {'variants.barcode' : '5060322562605'});
+ db.variants.find( {'variants.grams' : { $eq : 0}});
+
+
+db.products.findOne();
+_id <object>:
+    str <string>
+    toString <function>
+    tojson <function>
+    valueOf <function>
+    isObjectId <boolean>
+    getTimestamp <function>
+    equals <function>
+variants <array>:
+    0 <object>:
+        barcode <string>
+        compare_at_price <object>:
+        created_at <string>
+        fulfillment_service <string>
+        grams <number>
+        id <number>
+        inventory_management <string>
+        inventory_policy <string>
+        option1 <string>
+        option2 <object>:
+        option3 <object>:
+        position <number>
+        price <string>
+        product_id <number>
+        requires_shipping <boolean>
+        sku <string>
+        taxable <boolean>
+        title <string>
+        updated_at <string>
+        inventory_quantity <number>
+        old_inventory_quantity <number>
+        image_id <object>:
+        weight <number>
+        weight_unit <string>
+> 
+db.variants.find(
+    {
+      variants:
+        {
+          company: 'ABC123',
+          price : '123 Street'
+        }
+    }
+)
+
+
+db.variants.find.each_slice(10) do |slice|
+  puts slice.inspect
+end
+
+db.variants.find( {'variants.price' : { $eq : "15.00"} }, {"variants.title":1,"variants.price":1} )
+
+ db.products.find( {'products.product_id' : { $ne : "0"} }, {"products.vendor":1,"products.title":1} )
+
+
+db.variants.drop();
+db.variants.remove({});
+db.variants1.renameCollection("variants")
+
+
+http://docs.mongodb.org/manual/tutorial/store-javascript-function-on-server/
+
+
+db.system.js.save(
+   {
+     _id : "myAddFunction" ,
+     value : function (x, y){ return x + y; }
+   }
+);
+
