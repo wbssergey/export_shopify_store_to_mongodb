@@ -46,6 +46,7 @@ require 'shopify_api' # Tellement utile to speak to your shop.
        puts custom_collection.title
        end
 
-                                                                                        end
+       end
+       end
 
  
